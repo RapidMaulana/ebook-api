@@ -20,3 +20,21 @@ Route::get('/', function () {
 Route::get('coba', function () {
     return "Hai :D";
 });
+
+Route::get('coba2', function(){
+    return [
+        'Nama' => 'S. Maulana Muhammad Rafid',
+        'NIs' => 12369420,
+        'Kelas' => 'XII RPL 6'
+    ];
+});
+
+Route::get('coba3', function(){
+    return response()->json(
+        [
+            'Nama' => 'S. Maulana Muhammad Rafid',
+            'NIs' => 12369420,
+            'Kelas' => 'XII RPL 6'
+        ], 201
+        );
+});
