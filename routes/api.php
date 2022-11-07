@@ -23,13 +23,26 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('me',[AuthController::class, 'me']);
 
-Route::resource('book', BookController::class) -> except([
-    'create', 'edit'
-]);
+Route::post('/register', [AuthController::class, 'register']);
 
-Route::resource('authors', AuthorController::class) -> except([
-    'create', 'edit'
-]);
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::group(['middleware' => ['auth:sanctum']], function() {
+    Route::get('/profile', function(Request $request) {
+        return auth()->user();
+    });
+
+    Route::resource('book', BookController::class) -> except([
+        'create', 'edit'
+    ]);
+    
+    Route::resource('authors', AuthorController::class) -> except([
+        'create', 'edit',
+    ]);
+    
+    Route::post('/logout', [AuthController::class, 'logout']);
+});
+
 // Route::get('me',[AuthController::class, 'me']);
 // Route::post('me',[AuthController::class, 'me']);
 // Route::put('me',[AuthController::class, 'me']);
